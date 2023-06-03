@@ -1,13 +1,13 @@
 {
   "name": "ts-stash",
-  "type": "module",
+  "type": "commonjs",
   "version": "0.1.0",
   "description": "Utilities for extra JS/TS algorithms and data structures",
   "main": "src/graph/directed/index.ts",
   "scripts": {
-    "build": "rm -rf dist && rollup -c",
+    "build": "rm -rf dist && rollup -c rollup.config.js --bundleConfigAsCjs",
     "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha --check-leaks --parallel -r ts-node/register 'src/**/*test.ts'",
-    "test:sky": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha --check-leaks --parallel -r ts-node/register 'src/misc/6-by-6-skyscrapers.test.ts'"
+    "test:sky": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha --check-leaks --parallel -r ts-node/register 'src/misc/6-by-6-skyscrapers/6-by-6-skyscrapers.test.ts'"
   },
   "repository": {
     "type": "git",
