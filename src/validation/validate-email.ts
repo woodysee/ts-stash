@@ -35,7 +35,7 @@ const domainPartPattern = [
 ].join("");
 
 /**
- * Tests if email is valid according to RFC2822, but does
+ * Tests if an email is valid according to RFC2822, but does
  * not accept quoted or escaped characters in the local-part.
  * Also currently does not check length of domain-part.
  */
