@@ -1,12 +1,11 @@
-import typescriptEslintPlugin from "@typescript-eslint/eslint-plugin";
-import eslintPluginPrettier from "eslint-plugin-prettier";
-import tseslintParser from "@typescript-eslint/parser";
 import { FlatCompat } from "@eslint/eslintrc";
+import typescriptEslintPlugin from "@typescript-eslint/eslint-plugin";
+import tseslintParser from "@typescript-eslint/parser";
 import importPlugin from "eslint-plugin-import";
-
+import eslintPluginPrettier from "eslint-plugin-prettier";
 import path from "path";
 import { fileURLToPath } from "url";
-import { Linter, ESLint } from "eslint";
+import type { Linter, ESLint } from "eslint";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -18,6 +17,28 @@ const compat = new FlatCompat({
     overrides: [],
   },
 });
+
+/**
+ * @see https://typescript-eslint.io/rules/consistent-type-imports/
+ */
+const defaultConfigRuleForConsistentTypeImportsOptions: {
+  /** Whether to disallow type imports in type annotations (`import()`). */
+  disallowTypeAnnotations?: boolean;
+  /** The expected type modifier to be added when an import is detected as used only in the type position. */
+  fixStyle?:
+    | "inline-type-imports"
+    /** The expected type modifier to be added when an import is detected as used only in the type position. */
+    | "separate-type-imports";
+  /** The expected import kind for type-only imports. */
+  prefer?:
+    | "no-type-imports"
+    /** The expected import kind for type-only imports. */
+    | "type-imports";
+} = {
+  disallowTypeAnnotations: true,
+  fixStyle: "separate-type-imports",
+  prefer: "type-imports",
+};
 
 const config: Linter.Config[] = [
   {
@@ -46,17 +67,21 @@ const config: Linter.Config[] = [
   ),
   {
     rules: {
+      "@typescript-eslint/consistent-type-imports": [
+        "error",
+        defaultConfigRuleForConsistentTypeImportsOptions,
+      ],
       "@typescript-eslint/no-explicit-any": "error",
       "@typescript-eslint/no-non-null-assertion": "error",
       "import/order": [
         "error",
         {
           groups: [
-            "builtin",
-            "external",
+            ["builtin", "external"],
             "internal",
-            ["parent", "sibling"],
-            "index",
+            ["parent", "sibling", "index"],
+            "object",
+            "type",
           ],
           "newlines-between": "never",
           alphabetize: { order: "asc", caseInsensitive: true },
