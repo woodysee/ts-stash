@@ -16,6 +16,7 @@ export default {
     "misc/coin-change/bottom-up": "src/misc/coin-change/bottom-up.ts",
     "misc/coin-change/top-down": "src/misc/coin-change/top-down.ts",
     "misc/cpf": "src/misc/cpf/index.ts",
+    "misc/llm": "src/misc/llm/fix-conversations.ts",
     "validation/validate-email": "src/validation/validate-email.ts",
   },
   output: {
