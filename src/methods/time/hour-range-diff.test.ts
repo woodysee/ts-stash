@@ -1,5 +1,4 @@
 import { expect } from "chai";
-
 import { getMsBetweenStrHourRange } from "./hour-range-diff";
 
 describe("getMsBetweenStrHourRange", () => {

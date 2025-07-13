@@ -10,7 +10,9 @@ export const fetchData = async (
  * @param urls ordered list of URLs
  * @returns Ordered list of response data
  */
-export const getMultipleFetches = async (urls: string[]): Promise<any[]> => {
+export const getMultipleFetches = async (
+  urls: string[],
+): Promise<unknown[]> => {
   const reses = await Promise.allSettled(urls.map((url) => fetchData(url, {})));
   const vals = reses.map((res) =>
     res.status === "fulfilled" ? res.value : [],

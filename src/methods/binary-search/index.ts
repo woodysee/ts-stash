@@ -8,7 +8,7 @@ const binarySearch = <T>(
 
   while (startIndex <= endIndex) {
     // Find the mid index
-    let mid = Math.floor((startIndex + endIndex) / 2);
+    const mid = Math.floor((startIndex + endIndex) / 2);
     if (getValue(list[mid]) === valueToLookup) {
       return mid;
     }

@@ -1,5 +1,4 @@
 import { expect } from "chai";
-
 import { calculateSalaryWithCPF, CPFPart } from ".";
 
 const cpfNames: Record<CPFPart, string> = {

@@ -1,5 +1,5 @@
 export class SinglyLinkedNode<V> {
-  private _id: Symbol;
+  private _id: symbol;
   private _next: SinglyLinkedNode<V> | undefined;
   value: V;
   constructor(list: V[]) {
@@ -55,7 +55,9 @@ export class SinglyLinkedNode<V> {
   /**
    * For testing
    */
-  map<M = any>(forEachNode: (singlyLinkedNode: SinglyLinkedNode<V>) => M): M[] {
+  map<M = unknown>(
+    forEachNode: (singlyLinkedNode: SinglyLinkedNode<V>) => M,
+  ): M[] {
     let currentNode = this as SinglyLinkedNode<V> | undefined;
     const list = [];
     while (typeof currentNode !== "undefined") {
@@ -68,7 +70,7 @@ export class SinglyLinkedNode<V> {
 }
 
 export class DoublyLinkedNode<V> {
-  private _id: Symbol;
+  private _id: symbol;
   private _prev: DoublyLinkedNode<V> | undefined;
   private _next: DoublyLinkedNode<V> | undefined;
   value: V;
@@ -133,7 +135,9 @@ export class DoublyLinkedNode<V> {
   /**
    * For testing
    */
-  map<M = any>(forEachNode: (doublyLinkedNode: DoublyLinkedNode<V>) => M): M[] {
+  map<M = unknown>(
+    forEachNode: (doublyLinkedNode: DoublyLinkedNode<V>) => M,
+  ): M[] {
     let currentNode = this as DoublyLinkedNode<V> | undefined;
     const list = [];
     while (typeof currentNode !== "undefined") {

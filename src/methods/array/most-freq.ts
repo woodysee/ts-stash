@@ -23,7 +23,7 @@ export function mostFrequentMeal(meals: string[]) {
       obj[mealId] = 1;
     }
   });
-  const [mostFreqMeal, nr] = Object.keys(obj).reduce(
+  const [mostFreqMeal] = Object.keys(obj).reduce(
     ([accMealId, nr], mealId) => {
       if (obj[mealId] === nr && mealId < `${accMealId}`) {
         return [mealId, obj[mealId]] as [string | undefined, number];

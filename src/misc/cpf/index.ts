@@ -72,8 +72,11 @@ export const calculateSalaryWithCPF = (options: {
     default:
       break;
   }
-  return (Object.keys(result) as CPFPart[]).reduce((acc, key) => {
-    acc[key] = parseFloat(result[key].toFixed(2));
-    return acc;
-  }, {} as Record<CPFPart, number>);
+  return (Object.keys(result) as CPFPart[]).reduce(
+    (acc, key) => {
+      acc[key] = parseFloat(result[key].toFixed(2));
+      return acc;
+    },
+    {} as Record<CPFPart, number>,
+  );
 };

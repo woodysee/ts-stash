@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { intersection } from "../../../src/methods/array/intersection";
+import { intersection } from "./intersection";
 
 /**
  * Find the intersection of two arrays.

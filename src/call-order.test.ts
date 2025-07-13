@@ -1,5 +1,3 @@
-import { expect } from "chai";
-
 /**
  * @see https://www.jsv9000.app/
  */

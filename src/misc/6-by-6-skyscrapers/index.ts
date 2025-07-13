@@ -145,7 +145,7 @@ const findSolution = (options: Options) => {
     return;
   }
 
-  let heightsUsed: number[] = [];
+  const heightsUsed: number[] = [];
 
   // Seach all left side cells for repeated
   let heightsUsedInRow: number[] = [];
