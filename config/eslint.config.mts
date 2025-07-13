@@ -1,11 +1,11 @@
 import { FlatCompat } from "@eslint/eslintrc";
 import typescriptEslintPlugin from "@typescript-eslint/eslint-plugin";
 import tseslintParser from "@typescript-eslint/parser";
-import importPlugin from "eslint-plugin-import";
+import type { Linter, ESLint } from "eslint";
+import perfectionist from "eslint-plugin-perfectionist";
 import eslintPluginPrettier from "eslint-plugin-prettier";
 import path from "path";
 import { fileURLToPath } from "url";
-import type { Linter, ESLint } from "eslint";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -57,7 +57,11 @@ const config: Linter.Config[] = [
        * is typed as `ESLint.Plugin`
        */
       "@typescript-eslint": typescriptEslintPlugin as unknown as ESLint.Plugin,
-      import: importPlugin,
+      /**
+       * `simple-import-sort` intentionally puts whitespaces
+       * between import groupings without a setting to disable it
+       */
+      perfectionist,
       prettier: eslintPluginPrettier,
     },
   },
@@ -73,20 +77,24 @@ const config: Linter.Config[] = [
       ],
       "@typescript-eslint/no-explicit-any": "error",
       "@typescript-eslint/no-non-null-assertion": "error",
-      "import/order": [
+      "perfectionist/sort-imports": [
         "error",
         {
+          type: "natural",
+          order: "asc",
+          newlinesBetween: 0,
           groups: [
             ["builtin", "external"],
             "internal",
             ["parent", "sibling", "index"],
-            "object",
-            "type",
           ],
-          "newlines-between": "never",
-          alphabetize: { order: "asc", caseInsensitive: true },
+          internalPattern: ["^@/", "^~/"],
         },
       ],
+      // OAutosort objects (order may be import within objects)
+      "perfectionist/sort-objects": "off",
+      "perfectionist/sort-jsx-props": "off",
+      "perfectionist/sort-enums": "off",
       "prefer-const": "error",
       "prettier/prettier": "error",
     },

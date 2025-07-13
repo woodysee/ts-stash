@@ -1,4 +1,4 @@
-import { CoinDenomination, Amount, CoinSelectionLength } from "./types";
+import type { CoinDenomination, Amount, CoinSelectionLength } from "./types";
 
 const getMinCoinSelectionLength = (
   coins: CoinDenomination[],

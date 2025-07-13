@@ -1,4 +1,4 @@
-import { Amount, CoinDenomination, CoinSelectionLength } from "./types";
+import type { Amount, CoinDenomination, CoinSelectionLength } from "./types";
 
 /**
  * Solution to the "Coin Change" problem using bottom up dynamic programming
