@@ -26,5 +26,9 @@ export default {
     preserveModulesRoot: "src",
     sourcemap: false,
   },
-  plugins: [resolve({ browser: false }), json(), typescript()],
+  plugins: [
+    resolve({ browser: false }),
+    json(),
+    typescript({ tsconfig: "./tsconfig.src.json" }),
+  ],
 };
