@@ -16,6 +16,10 @@ type GPId = `g-p-${string}`;
 
 /**
  * Format: `"(a-z0-9)+\-(A-Z)(A-Z)(A-Z)"`
+ * High likelihood it is used for Cf-Ray request header
+ * which hashes details about the data centre and request, aka
+ * Cloudflare Ray ID
+ * @see https://developers.cloudflare.com/fundamentals/reference/http-headers/#cf-ray
  * @example "ahs11e1o12qio-SIN" (where SIN stands for IATA airport code
  * for Changi International Airport for example)
  **/
