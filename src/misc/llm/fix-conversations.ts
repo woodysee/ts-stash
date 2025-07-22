@@ -27,8 +27,9 @@ const checkIfHaveMessageContent = (
  */
 export const fixConversations = (
   conversations: Conversations,
-): Conversations => {
-  return conversations.map((conv: ConversationNode): ConversationNode => {
+): { allConversations: Conversations } => {
+  const allConversations: Conversations = [];
+  conversations.forEach((conv: ConversationNode) => {
     const oldMap = conv.mapping;
     type KeyofOldMap = keyof typeof oldMap;
     const oldMapEntries = Object.entries(oldMap) as [
@@ -79,9 +80,10 @@ export const fixConversations = (
       });
     });
 
-    return {
+    allConversations.push({
       ...conv,
       mapping,
-    };
+    });
   });
+  return { allConversations };
 };

@@ -41,7 +41,7 @@ describe("fixConversations", () => {
 
     const result = fixConversations(input);
 
-    expect(Object.keys(result[0].mapping)).to.have.members([
+    expect(Object.keys(result.allConversations[0].mapping)).to.have.members([
       "client-created-root",
       conversationId02,
       conversationId04,
@@ -58,34 +58,32 @@ describe("fixConversations", () => {
       conversationId15,
       conversationId16,
     ]);
-    expect(Object.keys(result[0].mapping)).not.to.have.members([
-      conversationIdWithNoTextNode,
-      conversationId01,
-      conversationId03,
-    ]);
+    expect(Object.keys(result.allConversations[0].mapping)).not.to.have.members(
+      [conversationIdWithNoTextNode, conversationId01, conversationId03],
+    );
 
-    const resultRootNode = result[0]
+    const resultRootNode = result.allConversations[0]
       .mapping as ConversationMappingWithClientCreatedRoot;
 
     // should remap children and skip over no text nodes
     expect(resultRootNode["client-created-root"].children[0]).to.equal(
       conversationId02,
     );
-    expect(result[0].mapping[conversationId02].children[0]).to.equal(
-      conversationId04,
-    );
-    expect(result[0].mapping[conversationId04].parent).to.equal(
-      conversationId02,
-    );
-    expect(result[0].mapping[conversationId04].children[0]).to.equal(
-      conversationId05,
-    );
-    expect(result[0].mapping[conversationId05].parent).to.equal(
-      conversationId04,
-    );
-    expect(result[0].mapping[conversationId05].children[0]).to.equal(
-      conversationId06,
-    );
+    expect(
+      result.allConversations[0].mapping[conversationId02].children[0],
+    ).to.equal(conversationId04);
+    expect(
+      result.allConversations[0].mapping[conversationId04].parent,
+    ).to.equal(conversationId02);
+    expect(
+      result.allConversations[0].mapping[conversationId04].children[0],
+    ).to.equal(conversationId05);
+    expect(
+      result.allConversations[0].mapping[conversationId05].parent,
+    ).to.equal(conversationId04);
+    expect(
+      result.allConversations[0].mapping[conversationId05].children[0],
+    ).to.equal(conversationId06);
 
     expect(resultRootNode["client-created-root"]).to.deep.equal({
       id: "client-created-root",
@@ -102,7 +100,7 @@ describe("fixConversations", () => {
 
     const result = fixConversations(input);
 
-    expect(Object.keys(result[0].mapping)).to.have.members([
+    expect(Object.keys(result.allConversations[0].mapping)).to.have.members([
       conversationId01,
       conversationId04,
       conversationId06,
@@ -119,14 +117,16 @@ describe("fixConversations", () => {
 
     // should prune messages with no text content (to prevent loading
     // bar from showing which may be confusing)
-    expect(Object.keys(result[0].mapping)).not.to.have.members([
-      conversationId02,
-      conversationId03,
-      conversationId05,
-      conversationId01A01,
-      conversationId01A02,
-      conversationId01A01_02,
-      conversationId09,
-    ]);
+    expect(Object.keys(result.allConversations[0].mapping)).not.to.have.members(
+      [
+        conversationId02,
+        conversationId03,
+        conversationId05,
+        conversationId01A01,
+        conversationId01A02,
+        conversationId01A01_02,
+        conversationId09,
+      ],
+    );
   });
 });
