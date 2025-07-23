@@ -2,6 +2,7 @@ import type {
   Conversations,
   ConversationNode,
   ConversationMapping,
+  KebabCasedUUID,
 } from "./types";
 
 const checkIfHaveMessageContent = (
@@ -25,10 +26,18 @@ const checkIfHaveMessageContent = (
  *  - Keeping only nodes where message.content.content_type === "text"
  *  - Pruning children arrays to only reference retained nodes
  */
-export const fixConversations = (
-  conversations: Conversations,
-): { allConversations: Conversations } => {
+export const fixConversations = ({
+  conversations,
+  folderIndex,
+}: {
+  conversations: Conversations;
+  folderIndex: Record<string, KebabCasedUUID[]>;
+}): {
+  allConversations: Conversations;
+  byFolder: Record<string, Conversations>;
+} => {
   const allConversations: Conversations = [];
+  const byFolder: Record<string, Conversations> = {};
   conversations.forEach((conv: ConversationNode) => {
     const oldMap = conv.mapping;
     type KeyofOldMap = keyof typeof oldMap;
@@ -80,10 +89,20 @@ export const fixConversations = (
       });
     });
 
+    Object.entries(folderIndex).forEach(([folderName, conversationIds]) => {
+      if (conversationIds.includes(conv.id)) {
+        if (Array.isArray(byFolder[folderName])) {
+          byFolder[folderName].push(conv);
+        } else {
+          byFolder[folderName] = [conv];
+        }
+      }
+    });
+
     allConversations.push({
       ...conv,
       mapping,
     });
   });
-  return { allConversations };
+  return { allConversations, byFolder };
 };

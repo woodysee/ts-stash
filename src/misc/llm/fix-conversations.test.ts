@@ -2,6 +2,7 @@ import { expect } from "chai";
 import { fixConversations } from "./fix-conversations";
 import { defaultClientCreatedRootConversationNode } from "./mocks/client-created-root-conversation-node";
 import {
+  conversationId,
   conversationId01,
   conversationId01A,
   conversationId01A01,
@@ -39,7 +40,14 @@ describe("fixConversations", () => {
       { ...defaultClientCreatedRootConversationNode },
     ];
 
-    const result = fixConversations(input);
+    const exampleFolderName = "great recipes";
+
+    const result = fixConversations({
+      conversations: input,
+      folderIndex: {
+        [exampleFolderName]: [conversationId],
+      },
+    });
 
     expect(Object.keys(result.allConversations[0].mapping)).to.have.members([
       "client-created-root",
@@ -91,6 +99,11 @@ describe("fixConversations", () => {
       parent: null,
       children: [conversationId02],
     });
+
+    // should push the matched conversation into different folders
+    expect(result.byFolder[exampleFolderName][0].id).to.eq(
+      result.allConversations[0].id,
+    );
   });
 
   it('ensures that the conversation is normalised to start with "client-created-root" indexed conversation', () => {
@@ -98,7 +111,7 @@ describe("fixConversations", () => {
       { ...defaultUUIDIndexedRootConversationNode },
     ];
 
-    const result = fixConversations(input);
+    const result = fixConversations({ conversations: input, folderIndex: {} });
 
     expect(Object.keys(result.allConversations[0].mapping)).to.have.members([
       conversationId01,
