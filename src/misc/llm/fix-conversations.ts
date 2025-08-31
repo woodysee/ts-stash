@@ -20,6 +20,12 @@ const checkIfHaveMessageContent = (
   return false;
 };
 
+interface ConversationDetail {
+  id: KebabCasedUUID;
+  title: string;
+  currentNode: KebabCasedUUID;
+}
+
 /**
  * Cleans an array of `ConversationNode` by:
  *  - Keeping only mapping nodes with no message (root)
@@ -35,9 +41,11 @@ export const fixConversations = ({
 }): {
   allConversations: Conversations;
   byFolder: Record<string, Conversations>;
+  titles: ConversationDetail[];
 } => {
   const allConversations: Conversations = [];
   const byFolder: Record<string, Conversations> = {};
+  const titles: ConversationDetail[] = [];
   conversations.forEach((conv: ConversationNode) => {
     const oldMap = conv.mapping;
     type KeyofOldMap = keyof typeof oldMap;
@@ -103,6 +111,13 @@ export const fixConversations = ({
       ...conv,
       mapping,
     });
+
+    titles.push({
+      id: conv.id,
+      title: conv.title,
+      currentNode: conv.current_node,
+    });
   });
-  return { allConversations, byFolder };
+
+  return { allConversations, byFolder, titles };
 };

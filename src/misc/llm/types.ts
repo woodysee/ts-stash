@@ -52,6 +52,11 @@ export interface InternalNodeConversationMappingValueMessageContentForText {
   parts: string[];
 }
 
+export interface InternalNodeConversationMappingValueMessageContentForThoughts {
+  content_type: "thoughts";
+  parts: [{ summary: string; content: string }];
+}
+
 export interface InternalNodeConversationMappingValueMessageContentForCodeContentType {
   content_type: "code";
   language: "unknown";
@@ -144,6 +149,7 @@ export interface InternalNodeConversationMappingValueMessageContentForMultiModal
 
 export type InternalNodeConversationMappingValueMessageContent =
   | InternalNodeConversationMappingValueMessageContentForText
+  | InternalNodeConversationMappingValueMessageContentForThoughts
   | InternalNodeConversationMappingValueMessageContentForUserEditableContext
   | InternalNodeConversationMappingValueMessageContentForCodeContentType
   | InternalNodeConversationMappingValueMessageContentForMultiModalText;
